@@ -166,7 +166,25 @@ app.get('/api/health', (req, res) => {
     environment: process.env.NODE_ENV || 'development'
   });
 });
-
+router.get('/api/health/db', async (req, res) => {
+  try {
+    // Простая проверка подключения к БД
+    const result = await db.query('SELECT 1 as test');
+    res.status(200).json({ 
+      status: 'online', 
+      database: 'connected',
+      timestamp: new Date().toISOString()
+    });
+  } catch (error) {
+    console.error('Database health check failed:', error);
+    res.status(500).json({ 
+      status: 'offline', 
+      database: 'disconnected',
+      error: error.message,
+      timestamp: new Date().toISOString()
+    });
+  }
+});
 // Error handling middleware
 app.use((err, req, res, next) => {
   console.error('Error:', err);

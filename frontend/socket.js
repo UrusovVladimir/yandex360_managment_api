@@ -40,9 +40,12 @@ console.log('Socket connection configured:', {
 
 // Socket event listeners
 socket.on('user_updated', (user) => {
-  console.log('User updated via socket:', user)
   const usersStore = useUsersStore()
-  usersStore.updateUser(user)
+  if (user && user.id) {
+    usersStore.updateUserInStore(user) 
+  } else {
+    console.error('Invalid user data received:', user)
+  }
 })
 
 socket.on('user_created', (user) => {

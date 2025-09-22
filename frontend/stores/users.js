@@ -87,13 +87,17 @@ export const useUsersStore = defineStore('users', () => {
     users.value = users.value.filter(user => user.id !== userId)
   }
 
+
   const updateUserInStore = (updatedUser) => {
-    const index = users.value.findIndex(u => u.id === updatedUser.id)
+    
+    const index = users.value.findIndex(user => user.id === updatedUser.id)
+
     if (index !== -1) {
       users.value[index] = updatedUser
+    } else {
+      console.warn("User not found in store:", updatedUser.id)
     }
   }
-
   const clearError = () => {
     error.value = null
   }

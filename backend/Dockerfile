@@ -6,7 +6,8 @@ RUN apk add --no-cache \
     python3 \
     make \
     g++ \
-    postgresql-client
+    postgresql-client \
+    nano
 
 COPY package*.json ./
 

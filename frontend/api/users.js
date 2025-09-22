@@ -1,6 +1,6 @@
 import { http } from './http'
+import { API_BASE } from '../services/apiEndpoints'
 
-const API_BASE = 'http://localhost:5050/api'
 
 export const usersApi = {
   async getAll() {

@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
 import { socket } from '../socket'
-
+import { API_BASE } from '../services/apiEndpoints'
 export const useAuthStore = defineStore('auth', () => {
   const user = ref(null)
   const token = ref(localStorage.getItem('token'))
@@ -13,7 +13,7 @@ export const useAuthStore = defineStore('auth', () => {
     error.value = ''
     
     try {
-      const response = await fetch('http://localhost:5050/api/auth/login', {
+      const response = await fetch(`${API_BASE}/auth/login`, {
         method: 'POST',
         headers: { 
           'Content-Type': 'application/json'
@@ -76,7 +76,7 @@ export const useAuthStore = defineStore('auth', () => {
     if (!token.value) return false
     
     try {
-      const response = await fetch('http://localhost:5050/api/auth/verify', {
+      const response = await fetch(`${API_BASE}/auth/verify`, {
         headers: {
           'Authorization': `Bearer ${token.value}`
         }
